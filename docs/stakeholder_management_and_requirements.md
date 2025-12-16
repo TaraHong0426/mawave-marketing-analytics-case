@@ -44,8 +44,8 @@ The term “Dashboard” refers to the **dbt Business Layer models**, not to a B
 - ROAS, CPA, CTR, CVR  
 - Revenue, Conversions, Spend  
 
-**Example SQL:**
-- High spend but low efficiency clients (optimization candidates)
+**Example SQL: High spend but low efficiency clients (optimization candidates)**
+```sql
 select
   client_id,
   client_name,
@@ -55,9 +55,11 @@ select
   blended_roas,
   blended_cpa_eur
 from bl_client_performance_dashboard
-where attribution_window = '1d_view' and total_ad_spend_eur > 50000
+where attribution_window = '1d_view'
+  and total_ad_spend_eur > 50000
 order by blended_roas asc
-limit 10; -- Client_17
+limit 10;
+Result example: Client_17
 
 ---
 
