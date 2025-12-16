@@ -1,0 +1,201 @@
+employee_id,employee_name,department_name,team_name,hourly_rate_eur,status
+1,Employee_1,Paid Media,PC,85.0,Active
+2,Employee_2,Paid Content,,75.0,Active
+3,Employee_3,Paid Media,,85.0,Active
+4,Employee_4,Paid Media,PE,85.0,Active
+5,Employee_5,Paid Media,,85.0,Active
+6,Employee_6 ,Paid Content,CD,75.0,Active
+7,Employee_7,Paid Media,PD,85.0,Active
+8,Employee_8,Paid Media,PA,85.0,Active
+9,Employee_9,Paid Media,PB,85.0,Active
+10,Employee_10,Paid Media,PE,85.0,Active
+11,Employee_11,Paid Media,PE,85.0,Active
+12,Employee_12,Paid Media,,85.0,Active
+13,Employee_13,Strategy,Strategy,95.0,Active
+14,Employee_14,Paid Content,CD,75.0,Active
+15,Employee_15 ,Paid Content,,75.0,Active
+16,Employee_16,Paid Content,CB,75.0,Active
+17,Employee_17 ,Organic Social,OC,80.0,Active
+18, Employee_18,Organic Social,OD,80.0,Active
+19,Employee_19,Paid Media,PA,85.0,Active
+20,Employee_20,Paid Content,CB,75.0,Active
+21,employee_21,Organic Social,OC,80.0,Active
+22,Employee_22 ,Paid Content,CB,75.0,Active
+23,Employee_23,Organic Social,OE,80.0,Active
+24,Employee_24,Paid Media,PE,85.0,Active
+25,Employee_25,Organic Social,OC,80.0,Active
+26,Employee_26,Paid Content,CE,75.0,Active
+27,Employee_27,Paid Media,PE,85.0,Active
+28,Employee_28,Paid Media,PA,85.0,Active
+29,Employee_29,Paid Media,PD,85.0,Active
+30,Employee_30,Organic Social,Organic Social,80.0,Active
+31,employee_31,Paid Content,CB,75.0,Active
+32,Employee_32,Organic Social,OA,80.0,Active
+33,Employee_33 ,Paid Media,,85.0,Active
+34,Employee_34,Organic Social,OC,80.0,Active
+35,Employee_35,Paid Media,PD,85.0,Active
+36,Employee_36,Paid Content,CA,75.0,Active
+37,Employee_37,Paid Content,CB,75.0,Active
+38,Employee_38,Go To Market,Business Development,80.0,Active
+39,Employee_39,Paid Media,PD,85.0,Active
+40,Employee_40,Paid Media,,85.0,Active
+41,Employee_41,Paid Media,PE,85.0,Active
+42,Employee_42,Paid Content,CC,75.0,Active
+43,Employee 43,Paid Content,CE,75.0,Active
+44,Employee_44,Paid Content,CE,75.0,Active
+45,Employee_45,Paid Media,,85.0,Active
+46,Employee_46,Paid Content,CE,75.0,Active
+47,Employee_47,Paid Media,PD,85.0,Active
+48,Employee_48,Paid Content,CB,75.0,Active
+49,Employee_49,Paid Content,CE,75.0,Active
+50,Employee_50,Paid Content,CE,75.0,Active
+51,Employee_51,Organic Social,OA,80.0,Active
+52, Employee_52,Paid Content,CD,75.0,Active
+53,Employee_53,Paid Content,CE,75.0,Active
+54,Employee_54,People,People Team,80.0,Active
+55,employee_55,Paid Media,PE,85.0,Active
+56,Employee_56,Production,,80.0,Active
+57,Employee_57,Paid Content,CB,75.0,Active
+58,Employee_58 ,Paid Media,,85.0,Active
+59,Employee_59,Paid Media,PA,85.0,Active
+60,Employee_60,Go To Market,Inhouse Marketing,80.0,Active
+61,Employee_61,Sales_OLD,Sales,80.0,Active
+62,Employee_62 ,Go To Market,Sales,80.0,Active
+63,Employee_63,Go To Market,Sales,80.0,Active
+64,Employee_64 ,C-Level,People Team,80.0,Active
+65,Employee_65,Paid Content,CC,75.0,Active
+66,Employee_66,Paid Media,PC,85.0,Active
+67,Employee_67,Paid Content,CB,75.0,Active
+68,Employee_68 ,Paid Content,CA,75.0,Active
+69,Employee_69,Organic Social,OC,80.0,Active
+70,Employee_70,Paid Content,CC,75.0,Active
+71,Employee_71,Paid Media,PE,85.0,Active
+72,Employee_72,Organic Social,OA,80.0,Active
+73,Employee_73,Paid Media,PA,85.0,Active
+74,Employee_74,Finance & Controlling,Finance,80.0,Active
+75,Employee_75,Go To Market,Sales,80.0,Active
+76,Employee_76,People,People Team,80.0,Active
+77,Employee_77,Paid Content,CB,75.0,Active
+78,Employee_78,Organic Social,OB,80.0,Active
+79,Employee_79,Paid Content,CD,75.0,Active
+80,Employee 80,Paid Media,,85.0,Active
+81,Employee_81,Paid Content,CB,75.0,Active
+82,Employee_82,Paid Content,CC,75.0,Active
+83,Employee_83,Paid Media,PC,85.0,Active
+84,Employee_84,Paid Media,PB,85.0,Active
+85,Employee_85,Paid Media,PB,85.0,Active
+86,Employee_86,Digital Marketing (Rotationspraktikum)_OLD,,80.0,Active
+87,Employee 87,Paid Media,PD,85.0,Active
+88,Employee_88,Paid Content,CC,75.0,Active
+89,Employee_89,Go To Market,Sales,80.0,Active
+90,Employee_90,Paid Media,PD,85.0,Active
+91,Employee_91,People,People Team,80.0,Active
+92,Employee_92,Organic Social,OA,80.0,Active
+93,Employee_93,Paid Content,CB,75.0,Active
+94,Employee_94,Paid Content,CB,75.0,Active
+95,Employee_95,Paid Content,CC,75.0,Active
+96,employee_96,Paid Content,CA,75.0,Active
+97,Employee_97,Paid Media,,85.0,Active
+98,Employee_98,Paid Media,PA,85.0,Active
+99,Employee_99,Paid Content,CB,75.0,Active
+100,Employee_100,Organic Social,OA,80.0,Active
+101,Employee_101,Organic Social,OD,80.0,Active
+102,Employee_102,Organic Social,OA,80.0,Active
+103,Employee 103,Organic Social,OB,80.0,Active
+104,Employee_104,Go To Market,Inhouse Marketing,80.0,Active
+105,Employee_105,Go To Market,Inhouse Marketing,80.0,Active
+106,Employee_106,Paid Media,PE,85.0,Active
+107,Employee_107,Paid Content,CD,75.0,Active
+108,Employee_108,Organic Social,OA,80.0,Active
+109,Employee_109 ,Paid Media,PA,85.0,Active
+110,Employee_110,Organic Social,OD,80.0,Active
+111,Employee_111,C-Level,Growth,80.0,Active
+112,Employee_112,Paid Media,,85.0,Active
+113,employee_113,People,People Team,80.0,Active
+114,Employee_114,Organic Social,OE,80.0,Active
+115,Employee_115,Paid Content,CC,75.0,Active
+116, Employee_116,Paid Content,CB,75.0,Active
+117,Employee_117,Paid Content,CD,75.0,Active
+118,Employee_118,Paid Media,,85.0,Active
+119,Employee_119,Paid Content,CD,75.0,Active
+120,Employee_120,Go To Market,Inhouse Marketing,80.0,Active
+121,Employee_121,Organic Social,OD,80.0,Active
+122,Employee_122 ,People,People Team,80.0,Active
+123,Employee_123,Go To Market,Inhouse Marketing,80.0,Active
+124,Employee_124,Organic Social,OB,80.0,Active
+125,employee_125,Organic Social,OE,80.0,Active
+126,Employee_126,Organic Social,OB,80.0,Active
+127,Employee_127,Paid Content,CA,75.0,Active
+128,Employee_128,Paid Content,CC,75.0,Active
+129,Employee_129,Strategy,Strategy,95.0,Active
+130,Employee_130,Go To Market,Inhouse Marketing,80.0,Active
+131,Employee_131,Organic Social,OB,80.0,Active
+132,Employee_132,Paid Media,PA,85.0,Active
+133,Employee 133,Paid Content,CB,75.0,Active
+134,Employee_134,Paid Media,,85.0,Active
+135,Employee_135,Paid Content,CA,75.0,Active
+136,Employee 136,Paid Content,CA,75.0,Active
+137,employee_137,Paid Content,CC,75.0,Active
+138,Employee_138,Paid Content,CC,75.0,Active
+139,employee_139,Paid Media,PD,85.0,Active
+140,Employee_140,Organic Social,OD,80.0,Active
+141,Employee_141 ,Paid Content,CC,75.0,Active
+142,Employee_142 ,Paid Content,CB,75.0,Active
+143,Employee_143,Go To Market,Business Development,80.0,Active
+144,Employee_144,People,People Team,80.0,Active
+145,Employee_145,Paid Media,PB,85.0,Active
+146,employee_146,Go To Market,Inhouse Marketing,80.0,Active
+147,Employee_147,Organic Social,OA,80.0,Active
+148,Employee_148,Organic Social,OA,80.0,Active
+149,Employee_149,Paid Content,CA,75.0,Active
+150,Employee_150,Paid Content,CA,75.0,Active
+151,Employee 151,Organic Social,OD,80.0,Active
+152,Employee_152,Paid Content,CA,75.0,Active
+153,Employee_153,Paid Content,CC,75.0,Active
+154,Employee_154,Organic Social,OB,80.0,Active
+155,Employee_155,Organic Social,OC,80.0,Active
+156,Employee 156,Paid Media,,85.0,Active
+157,Employee_157,Paid Content,CD,75.0,Active
+158,Employee_158,Paid Content,CB,75.0,Active
+159,Employee_159,Paid Content,CE,75.0,Active
+160,Employee_160,Organic Social,OB,80.0,Active
+161,Employee_161,Paid Media,Paid Media,85.0,Active
+162,Employee_162,Paid Media,PC,85.0,Active
+163,Employee_163,Production,,80.0,Active
+164,Employee_164,Organic Social,OB,80.0,Active
+165,Employee_165,Organic Social,OC,80.0,Active
+166,Employee_166,Paid Content,CC,75.0,Active
+167,employee_167,Paid Media,PA,85.0,Active
+168,Employee_168,Paid Content,CD,75.0,Active
+169,Employee 169,Paid Content,CC,75.0,Active
+170,Employee_170,People,People Team,80.0,Active
+171,Employee_171,Organic Social,OA,80.0,Active
+172,Employee 172,People,People Team,80.0,Active
+173,Employee_173,Paid Content,CA,75.0,Active
+174,Employee_174,Production,,80.0,Active
+175,Employee_175,Organic Social,OA,80.0,Active
+176,Employee_176,Paid Content,CC,75.0,Active
+177,Employee 177,Organic Social,OB,80.0,Active
+178,Employee_178,Organic Social,OB,80.0,Active
+179,Employee_179,Paid Content,CE,75.0,Active
+180,Employee_180,Paid Content,CE,75.0,Active
+181,Employee_181,Go To Market,Sales,80.0,Active
+182,Employee_182,Organic Social,OB,80.0,Active
+183,Employee_183,Finance & Controlling,Finance,80.0,Active
+184,Employee_184,Paid Media,,85.0,Active
+185,Employee_185,Paid Content,CB,75.0,Active
+186,Employee_186,Paid Content,CB,75.0,Active
+187,Employee_187,Paid Content,CD,75.0,Active
+188,employee_188,Paid Content,CA,75.0,Active
+189,Employee_189,Paid Media,PA,85.0,Active
+190, Employee_190,Paid Media,,85.0,Active
+191,Employee_191,Paid Media,PA,85.0,Active
+192,Employee_192,Paid Media,PA,85.0,Active
+193,Employee_193,Organic Social,OB,80.0,Active
+194,Employee_194,Paid Content,CB,75.0,Active
+195,Employee_195,Paid Content,CE,75.0,Active
+196,Employee_196,Paid Content,CB,75.0,Active
+197,Employee_197,Paid Media,PC,85.0,Active
+198,Employee_198,Paid Media,PB,85.0,Active
+199,Employee_199,Organic Social,OE,80.0,Active
+200,employee_200,Production,,80.0,Active

@@ -1,0 +1,110 @@
+version: 2
+
+models:
+  - name: ol_campaign_profitability
+    description: >
+      Documentation of the intended internal-cost allocation approach for full campaign profitability,
+      and the limitations encountered in the provided case data.
+
+      ------------------------------------------------------------------------------
+
+      Intended Goal
+      Calculate full campaign profitability by combining:
+        - Media spend & revenue from `ol_unified_ad_metrics`
+        - Internal time/cost from `ol_client_projects_with_time` (derived from time tracking)
+
+      Pipeline concept:
+        - Grain: 1 row per client_id × campaign_id × platform × report_date × attribution_window
+        - Keys: (campaign_id, client_id)
+        - Metrics: total_cost_eur, profit_eur, margin_on_revenue, margin_on_cost
+
+      ------------------------------------------------------------------------------
+
+      Allocation Logic Attempt (Implemented in SQL but not activated due to data limits)
+
+      The model contains an allocation CASE expression:
+
+      ```sql
+      case
+        -- 1) Daily allocation: if client has internal cost on that day
+        when j.client_internal_cost_eur is not null
+         and j.spend_share_in_client_day is not null
+        then j.client_internal_cost_eur * j.spend_share_in_client_day
+
+        -- 2) Lifetime fallback: if daily cost missing but client has total internal cost
+        when j.client_internal_cost_eur is null
+         and j.client_total_internal_cost_eur is not null
+         and j.client_lifetime_spend_eur > 0
+        then j.client_total_internal_cost_eur * (j.ad_spend_eur / j.client_lifetime_spend_eur)
+
+        else null
+      end as internal_cost_eur
+      ```
+
+      The formula attempts:
+        1. Daily allocation
+           - Aggregate internal cost per (client_id, report_date)
+           - Allocate that daily internal cost to campaigns based on their share of the client's daily ad spend.
+        2. Lifetime fallback
+           - Aggregate total internal cost per client across the full observed period
+           - Allocate that total internal cost to campaigns based on their share of the client's lifetime ad spend.
+
+      Under normal circumstances, this would produce a realistic full profitability estimate
+      (media spend + allocated internal effort).
+
+      ------------------------------------------------------------------------------
+
+      Limitation Discovered in the Case Data
+
+      During testing, the following was observed:
+
+        - `ol_client_projects_with_time` contains internal cost for clients that do NOT
+          have active campaigns in `ol_unified_ad_metrics`.
+        - As a result, there is effectively no overlap in client_id values between
+          campaign data and internal-cost data at the OL layer.
+        - Therefore:
+            * client_internal_cost_eur is NULL for all rows
+            * client_total_internal_cost_eur is NULL for all rows
+            * Neither daily nor lifetime allocation path is ever triggered
+            * internal_cost_eur remains NULL for all campaigns
+            * total_cost_eur effectively equals ad_spend_eur only
+
+      In other words, the provided sample dataset does not allow computing internal-cost-based
+      profitability for the campaigns in scope.
+
+      ------------------------------------------------------------------------------
+
+      Decision for This Case
+
+      The allocation logic remains documented and implemented in the SQL model as an architectural
+      approach, but given the data limitation, the practical interpretation for this case study is:
+
+        - media_only_total_cost_eur = ad_spend_eur
+        - media_only_profit_eur = revenue_eur - ad_spend_eur
+        - Margins are to be interpreted as media-only, based solely on media spend vs revenue.
+
+      This avoids producing misleading “full profitability” numbers when internal cost data is not
+      actually available for the campaign clients in this dataset.
+
+      ------------------------------------------------------------------------------
+
+      Future Extension (Production Scenario)
+
+      Once time tracking / internal-cost data overlaps with the same set of clients that have
+      ad campaigns:
+
+        - The existing allocation logic (daily + lifetime fallback) can be activated immediately.
+        - The model will naturally transition from media-only profitability to full profitability
+          (media + internal time cost).
+        - No structural changes to downstream dashboards are required, only the semantics of
+          total_cost_eur and profit_eur will become “full cost” aware.
+
+    meta:
+      owner: "Data & Automation Product Manager"
+      maintained_by: "Tara Hong"
+      status: "Media-only profitability due to data limitation"
+      allocation_logic: "Internal-cost allocation logic implemented but not used because time-tracking client IDs do not overlap with campaign clients."
+    tags:
+      - profitability
+      - documentation
+      - limitation

@@ -1,0 +1,255 @@
+version: 2
+
+models:
+  - name: bl_client_performance_dashboard
+    description: >
+      Business-layer model providing a unified client-level performance view
+      at the grain of client × platform × attribution_window.
+
+      This model aggregates paid media performance and media-only profitability
+      from the operational layer, and enriches it with internal time & cost(where available) as well as organic/social performance metrics.
+
+    meta:
+      data_product: "Client Performance Dashboard"
+      grain: "1 row per client_id × platform × attribution_window"
+      primary_sources:
+        - "ol_campaign_profitability"
+        - "ol_client_projects_with_time"
+        - "cl_social_metrics"
+        - "cl_campaigns"
+        - "cl_clients"
+      scope: >
+        Includes only clients that have paid media activity in the dataset (9 ads clients derived from ad metrics / campaigns). 
+        Clients without any media spend are intentionally excluded from this model.
+      limitations: > 
+        1) Internal time & cost data from ol_client_projects_with_time is only available for a separate set of clients 
+           that does not overlap with the 9 advertising clients in this sample dataset. 
+           As a result, internal_* and net_profit_after_internal_eur fields are currently NULL
+           for all rows and should be considered a future extension point rather than an active KPI in this case.
+
+        2) Social metrics are derived from cl_social_metrics via cl_campaigns and cl_clients (using the accounts = clients 1:1 mapping). 
+           They are aggregated at client × channel (Facebook / Instagram) level and then joined onto this model at client level, 
+           so social values are repeated across platform × attribution_window combinations for the same client.
+           These should be interpreted as client-level attributes, not as platform-level performance metrics.
+
+        3) Although attribution_window is part of the grain and essential in real-world campaign measurement 
+           (where conversions and revenue vary significantly by window), 
+           the sample dataset used in this exercise provides nearly identical metrics across windows, resulting in minimal differences in aggregated KPIs.
+
+    tests:
+      # Grain check: in the current dataset, the combination of client_id,
+      # platform, and attribution_window should be unique.
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: ["client_id", "platform", "attribution_window"]
+
+    columns:
+      # Identity & dimension columns
+      - name: client_id
+        description: > 
+          Business client identifier, joined from the campaign/ad metrics
+          and ultimately backed by cl_clients.client_id (accounts = clients 1:1).
+        tests:
+          - not_null
+
+      - name: client_name
+        description: "client name."
+
+      - name: primary_industry
+        description: "Client's primary industry classification."
+
+      - name: platform
+        description: 
+          Paid media platform of the aggregated performance (e.g. 'Meta Ads', 'TikTok Ads'). Defines part of the grain of this model.
+        tests:
+          - not_null
+
+      - name: attribution_window
+        description: >
+          Attribution window used for aggregating conversions and revenue (e.g. '1d_click', '7d_click', '28d_click', '1d_view', '7d_view').
+          Defines part of the grain of this model.
+        tests:
+          - not_null
+
+      # Activity window & campaign footprint
+      - name: first_activity_date
+        description: >
+          Earliest report_date for which paid media activity is observed for
+          this client × platform × attribution_window combination.
+
+      - name: last_activity_date
+        description: >
+          Latest report_date for which paid media activity is observed for
+          this client × platform × attribution_window combination.
+
+      - name: num_campaigns
+        description: 
+          Number of distinct campaigns contributing to this client × platform × attribution_window aggregation.
+
+      # Paid media volume metrics
+      - name: total_impressions
+        description: "Total number of impressions across all campaigns and days."
+
+      - name: total_clicks
+        description: "Total number of clicks across all campaigns and days."
+
+      - name: total_conversions
+        description: 
+          Total number of conversions across all campaigns and days for the given platform and attribution window.
+
+      - name: total_ad_spend_eur
+        description: "Total media spend (ad_spend_eur) in EUR."
+
+      - name: total_revenue_eur
+        description: "Total attributed revenue in EUR."
+
+      # Blended performance KPIs (client-level, per platform/window)
+      - name: blended_ctr
+        description: >
+          Blended click-through rate (CTR) at client × platform × window level, 
+          computed as total_clicks / total_impressions (rounded to 2 decimal places).
+
+      - name: blended_cvr
+        description: >
+          Blended conversion rate (CVR) at client × platform × window level,
+          computed as total_conversions / total_clicks (rounded to 2 decimals).
+
+      - name: blended_cpc_eur
+        description: 
+          Blended cost per click (CPC) in EUR, computed as total_ad_spend_eur / total_clicks (rounded to 2 decimals).
+
+      - name: blended_cpa_eur
+        description: 
+          Blended cost per acquisition (CPA) in EUR, computed as total_ad_spend_eur / total_conversions (rounded to 2 decimals).
+
+      - name: blended_roas
+        description: 
+          Blended return on ad spend (ROAS), computed as total_revenue_eur / total_ad_spend_eur (rounded to 2 decimals).
+
+      # Media-only profitability (from OL)
+      - name: media_only_total_cost_eur
+        description: >
+          Total media-only cost at client × platform × window aggregation,
+          sourced from ol_campaign_profitability.media_only_total_cost_eur and summed across campaigns/days.
+
+      - name: media_only_profit_eur
+        description: >
+          Media-only profit (revenue minus media-only cost) at client ×
+          platform × window aggregation, summed from the OL profitability model.
+
+      - name: media_only_margin_on_revenue
+        description: 
+          Media-only margin on revenue, computed as media_only_profit_eur / total_revenue_eur (rounded to 2 decimals).
+
+      - name: media_only_margin_on_cost
+        description: 
+          Media-only margin on cost, computed as media_only_profit_eur / media_only_total_cost_eur (rounded to 2 decimals).
+
+      # Internal resource usage & cost (currently NULL for advertising clients)
+      - name: total_hours_all_projects
+        description: >
+          Total recorded hours across all projects for this client, aggregated from ol_client_projects_with_time. 
+          In this sample dataset, the set of clients with time tracking does not overlap with the 9 advertising clients, so this field is NULL for all rows.
+
+      - name: total_internal_cost_eur
+        description: >
+          Total recorded internal cost in EUR across all projects for this client, from ol_client_projects_with_time. 
+          Currently NULL for all advertising clients due to non-overlapping client sets.
+
+      - name: productive_hours
+        description: >
+          Total productive hours for this client across projects. 
+          Currently NULL for all advertising clients in this dataset.
+
+      - name: productive_internal_cost_eur
+        description: >
+          Total productive internal cost in EUR for this client. 
+          Currently NULL for all advertising clients in this dataset.
+
+      - name: net_profit_after_internal_eur
+        description: >
+          Media-only profit minus total_internal_cost_eur. 
+          This is intended as a future extension to capture fully-loaded profitability once internal cost data is available for advertising clients. 
+          In the current dataset it is NULL for all rows.
+
+      - name: project_margin_after_internal
+        description: >
+          Project-level margin after internal cost at client × platform × attribution_window aggregation. 
+          Computed as net_profit_after_internal_eur / total_revenue_eur (rounded to 2 decimals).
+          Represents how much profit remains after both media spend and internal resource cost have been taken into account.
+
+      - name: client_lifetime_value_eur
+        description: >
+          Approximate client lifetime value (LTV) over the observed period in the dataset,
+          defined here as net_profit_after_internal_eur accumulated across all campaigns for this client, platform and attribution_window. 
+          In the current sample data, internal_* and net_profit_after_internal_eur are largely NULL because internal
+          cost is only available for non-advertising clients; 
+          the metric is retained as a future extension point for a full production implementation.
+
+      # Social / organic performance (client-level, repeated across grain)
+      - name: n_report_days_social
+        description: 
+          Number of distinct report dates on which any social activity (Facebook or Instagram) is observed for this client.
+
+      - name: n_report_days_facebook
+        description: 
+          Number of distinct report dates with Facebook social metrics for this client.
+
+      - name: n_report_days_instagram
+        description: 
+          Number of distinct report dates with Instagram social metrics for this client.
+
+      - name: total_new_followers_facebook
+        description: 
+          Total number of new followers on Facebook for this client across all available days.
+
+      - name: avg_daily_new_followers_facebook
+        description: 
+          Average daily number of new followers on Facebook for this client (rounded to 2 decimals).
+
+      - name: total_engaged_users_facebook
+        description: 
+          Total number of engaged users on Facebook for this client.
+
+      - name: avg_daily_engaged_users_facebook
+        description: 
+          Average daily engaged users on Facebook for this client (rounded to 2 decimals).
+
+      - name: total_website_clicks_facebook
+        description: 
+          Total website clicks originating from Facebook for this client.
+
+      - name: avg_daily_website_clicks_facebook
+        description: 
+          Average daily website clicks from Facebook for this client (rounded to 2 decimals).
+
+      - name: current_total_followers_facebook
+        description: 
+          Latest known total followers count on Facebook for this client.
+
+      - name: total_new_followers_instagram
+        description: 
+          Total number of new followers on Instagram for this client across all available days.
+
+      - name: avg_daily_new_followers_instagram
+        description: 
+          Average daily number of new followers on Instagram for this client (rounded to 2 decimals).
+
+      - name: total_engaged_users_instagram
+        description: 
+          Total number of engaged users on Instagram for this client.
+
+      - name: avg_daily_engaged_users_instagram
+        description: 
+          Average daily engaged users on Instagram for this client (rounded to 2 decimals).
+
+      - name: total_website_clicks_instagram
+        description: 
+          Total website clicks originating from Instagram for this client.
+
+      - name: avg_daily_website_clicks_instagram
+        description: 
+          Average daily website clicks from Instagram for this client (rounded to 2 decimals).
+
+      - name: current_total_followers_instagram
+        description: 
+          Latest known total followers count on Instagram for this client.

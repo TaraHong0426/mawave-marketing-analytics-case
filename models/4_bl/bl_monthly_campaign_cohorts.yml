@@ -1,0 +1,201 @@
+version: 2
+
+models:
+  - name: bl_monthly_campaign_cohorts
+    description: >
+      Business-layer model providing monthly campaign performance cohorts
+      at the grain of cohort_month × client × platform × attribution_window.
+
+      This model aggregates paid media performance and media-only profitability from campaign/day level data, 
+      and enriches it with monthly internal time & cost at client level to enable profitability analysis after internal cost.
+
+    meta:
+      data_product: "Campaign Performance Dashboard"
+      grain: "1 row per cohort_month × client_id × platform × attribution_window"
+      primary_sources:
+        - "ol_campaign_profitability"
+        - "ol_client_projects_with_time"
+      scope: >
+        Includes only clients that have paid media activity in the dataset.
+        For a given client, internal time & cost is aggregated at client × month level
+        and then reused across all platforms and attribution windows for that client/month.
+      limitations: >
+        1) Internal time & cost data is only available at client level (not per campaign or platform).
+           When joined to this model, monthly internal cost is repeated across platforms and
+           attribution windows for a given client and cohort_month, and should be interpreted as client-level overhead for that month.
+
+        2) Media-only profitability metrics (media_only_*) are calculated without internal cost.
+           Net profit and project margins after internal cost are only available when both media-only profit and monthly internal cost are present.
+
+        3) This model is designed as a monthly cohort view (time-series). 
+           For lifetime or full-period profitability, use client-level models such as bl_client_performance_dashboard.
+
+    tests:
+      # Grain check: the combination of client_id, platform, attribution_window, and cohort_month
+      # must be unique in this business-layer model.
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - client_id
+            - platform
+            - attribution_window
+            - cohort_month
+
+    columns:
+
+      # Identity & dimension columns
+      - name: client_id
+        description: >
+          Unique client identifier, joined from cl_clients.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('cl_clients')
+              field: client_id
+
+      - name: client_name
+        description: >
+          Anonymised client name (e.g. Client_1, Client_2).
+
+      - name: primary_industry
+        description: >
+          Cleaned primary industry label of the client.
+
+      - name: country
+        description: >
+          Country of the client. In this sample dataset, all clients are based in Germany.
+
+      - name: platform
+        description: >
+          Advertising platform associated with the campaigns in the cohort month.
+          Example values: Meta Ads, TikTok Ads, Google Ads, Pinterest Ads.
+        tests:
+          - not_null
+
+      - name: attribution_window
+        description: >
+          Attribution window used for performance metrics (e.g. 1d_click, 7d_click, 28d_click, 1d_view, 7d_view).
+        tests:
+          - not_null
+
+      - name: cohort_month
+        description: >
+          Cohort month for the aggregated metrics, derived by truncating report_date to month.
+          Represented as the first day of the month (e.g. 2024-01-01).
+        tests:
+          - not_null
+
+      # Campaign footprint within the month
+      - name: num_campaigns
+        description: >
+          Number of distinct campaigns with activity for this client × platform × attribution_window in the given cohort month.
+
+      - name: first_activity_date_in_month
+        description: >
+          First report_date with activity in the cohort month for this client × platform × attribution_window.
+
+      - name: last_activity_date_in_month
+        description: >
+          Last report_date with activity in the cohort month for this client × platform × attribution_window.
+
+      # Monthly media volumes & revenue
+      - name: monthly_impressions
+        description: >
+          Total impressions in the cohort month across all campaigns for this client × platform × attribution_window.
+
+      - name: monthly_clicks
+        description: >
+          Total clicks in the cohort month across all campaigns for this client × platform × attribution_window.
+
+      - name: monthly_conversions
+        description: >
+          Total conversions in the cohort month across all campaigns for this client × platform × attribution_window.
+
+      - name: monthly_ad_spend_eur
+        description: >
+          Total ad spend (media cost only) in EUR for this client × platform × attribution_window in the cohort month.
+
+      - name: monthly_revenue_eur
+        description: >
+          Total attributed revenue in EUR for this client × platform × attribution_window in the cohort month.
+
+      # Media-only profitability (monthly)
+      - name: media_only_total_cost_eur
+        description: >
+          Total media-only cost in EUR in the cohort month (typically equal to monthly_ad_spend_eur,
+          kept as a separate field for conceptual clarity in profitability calculations).
+
+      - name: media_only_profit_eur
+        description: >
+          Media-only profit in EUR in the cohort month, 
+          defined as monthly_revenue_eur - media_only_total_cost_eur.
+
+      # Internal resource usage & cost (monthly, client-level)
+      - name: monthly_total_hours_all_projects
+        description: >
+          Total internal hours tracked across all projects for the client in the cohort month.
+
+      - name: monthly_internal_cost_eur
+        description: >
+          Total internal personnel cost in EUR across all projects for the client in the cohort month.
+
+      - name: monthly_productive_hours
+        description: >
+          Total productive (billable) hours tracked for the client in the cohort month.
+
+      - name: monthly_productive_internal_cost_eur
+        description: >
+          Total productive (billable) internal cost in EUR for the client in the cohort month.
+
+      # Campaign performance KPIs (monthly, blended)
+      - name: monthly_ctr
+        description: >
+          Monthly blended click-through rate (CTR), calculated as monthly_clicks / monthly_impressions.
+
+      - name: monthly_cvr
+        description: >
+          Monthly blended conversion rate (CVR), calculated as monthly_conversions / monthly_clicks.
+
+      - name: monthly_cpc_eur
+        description: >
+          Monthly blended cost per click (CPC) in EUR, calculated as monthly_ad_spend_eur / monthly_clicks.
+
+      - name: monthly_cpa_eur
+        description: >
+          Monthly blended cost per acquisition/conversion (CPA) in EUR, calculated as monthly_ad_spend_eur / monthly_conversions.
+
+      - name: monthly_roas
+        description: >
+          Monthly blended return on ad spend (ROAS), calculated as monthly_revenue_eur / monthly_ad_spend_eur.
+
+      # Media-only margins (monthly)
+      - name: monthly_media_only_margin_on_revenue
+        description: >
+          Media-only margin on revenue in the cohort month, 
+          defined as media_only_profit_eur / monthly_revenue_eur.
+
+      - name: monthly_media_only_margin_on_cost
+        description: >
+          Media-only margin on cost in the cohort month,
+          defined as media_only_profit_eur / media_only_total_cost_eur.
+
+      # Resource allocation KPIs (monthly)
+      - name: monthly_utilization_rate_billable_hours
+        description: >
+          Share of productive (billable) hours over total internal hours for the client in the cohort month,
+          calculated as monthly_productive_hours / monthly_total_hours_all_projects.
+
+      - name: monthly_internal_cost_per_hour_eur
+        description: >
+          Effective internal cost per tracked hour in EUR in the cohort month,
+          calculated as monthly_internal_cost_eur / monthly_total_hours_all_projects.
+
+      # Profitability KPIs after internal cost (monthly)
+      - name: monthly_net_profit_after_internal_eur
+        description: >
+          Net profit in EUR after subtracting internal cost from media-only profit in the cohort month,
+          defined as media_only_profit_eur - monthly_internal_cost_eur.
+
+      - name: monthly_project_margin_after_internal
+        description: >
+          Project margin after internal cost in the cohort month,
+          defined as monthly_net_profit_after_internal_eur / monthly_revenue_eur.

@@ -1,0 +1,190 @@
+client_id,client_name,primary_industry,secondary_industry,country
+1,Client_1,🥣 Food & Beverage (FMCG),,Germany
+10,Client_10,🧬 Health & Functional Products,F&B,Germany
+100,Client_100,"🏛️ Finance, Insurance & Institutions",,Germany
+101,Client_101,💡 Tech & Digital Tools,,Germany
+102,Client_102,🏠 Home & Living,,Germany
+103,Client_103,"🌍 Travel, Leisure & Tourism",,Germany
+104,Client_104,"🌍 Travel, Leisure & Tourism",,Germany
+105,Client_105,🏠 Home & Living,,Germany
+106,Client_106,🥣 Food & Beverage (FMCG),F&B,Germany
+107,Client_107,🧍‍♀️ Fashion & Lifestyle,,Germany
+108,Client_108,🏠 Home & Living,,Germany
+109,Client_109,👶 Family & Kids,Fashion,Germany
+11,Client_11,🚗 Mobility & Automotive,,Germany
+110,Client_110,🧍‍♀️ Fashion & Lifestyle,,Germany
+111,Client_111,💡 Tech & Digital Tools,,Germany
+112,Client_112,🧬 Health & Functional Products,,Germany
+113,Client_113,🥣 Food & Beverage (FMCG),,Germany
+114,Client_114,🧬 Health & Functional Products,F&B,Germany
+115,Client_115,🥣 Food & Beverage (FMCG),,Germany
+116,Client_116,🧬 Health & Functional Products,,Germany
+117,Client_117,🏠 Home & Living,,Germany
+118,Client_118,🧍‍♀️ Fashion & Lifestyle,,Germany
+119,Client_119,🏠 Home & Living,,Germany
+12,Client_12,💡 Tech & Digital Tools,,Germany
+120,Client_120,🧍‍♀️ Fashion & Lifestyle,,Germany
+121,Client_121,🏠 Home & Living,,Germany
+122,Client_122,🥣 Food & Beverage (FMCG),,Germany
+123,Client_123,💡 Tech & Digital Tools,,Germany
+124,Client_124,"🌍 Travel, Leisure & Tourism",Home & Living,Germany
+125,Client_125,💡 Tech & Digital Tools,,Germany
+126,Client_126,🏠 Home & Living,,Germany
+127,Client_127,👶 Family & Kids,,Germany
+128,Client_128,🥣 Food & Beverage (FMCG),,Germany
+129,Client_129,🧍‍♀️ Fashion & Lifestyle,Fashion,Germany
+13,Client_13,"🏛️ Finance, Insurance & Institutions",,Germany
+130,Client_130,"🌍 Travel, Leisure & Tourism",,Germany
+131,Client_131,"🌍 Travel, Leisure & Tourism",,Germany
+132,Client_132,👶 Family & Kids,,Germany
+133,Client_133,🧍‍♀️ Fashion & Lifestyle,,Germany
+134,Client_134,🏠 Home & Living,,Germany
+135,Client_135,"🌍 Travel, Leisure & Tourism",,Germany
+136,Client_136,🏠 Home & Living,Home & Living,Germany
+137,Client_137,🧬 Health & Functional Products,Health,Germany
+138,Client_138,🧬 Health & Functional Products,,Germany
+139,Client_139,"🏛️ Finance, Insurance & Institutions",,Germany
+14,Client_14,"🏛️ Finance, Insurance & Institutions",,Germany
+140,Client_140,💡 Tech & Digital Tools,,Germany
+141,Client_141,🧍‍♀️ Fashion & Lifestyle,Fashion,Germany
+142,Client_142,🧍‍♀️ Fashion & Lifestyle,,Germany
+143,Client_143,"🌍 Travel, Leisure & Tourism",,Germany
+144,Client_144,🧍‍♀️ Fashion & Lifestyle,Fashion,Germany
+145,Client_145,🏠 Home & Living,,Germany
+146,Client_146,"🌍 Travel, Leisure & Tourism",Childrens Products,Germany
+147,Client_147,🏠 Home & Living,,Germany
+148,Client_148,🧍‍♀️ Fashion & Lifestyle,,Germany
+149,Client_149,👶 Family & Kids,,Germany
+15,Client_15,👶 Family & Kids,,Germany
+150,Client_150,🧍‍♀️ Fashion & Lifestyle,Sports,Germany
+151,Client_151,🧍‍♀️ Fashion & Lifestyle,,Germany
+152,Client_152,🧍‍♀️ Fashion & Lifestyle,Fashion,Germany
+153,Client_153,🧍‍♀️ Fashion & Lifestyle,,Germany
+154,Client_154,"🏛️ Finance, Insurance & Institutions",,Germany
+155,Client_155,💡 Tech & Digital Tools,,Germany
+156,Client_156,💡 Tech & Digital Tools,Sports,Germany
+157,Client_157,🧍‍♀️ Fashion & Lifestyle,,Germany
+158,Client_158,🚗 Mobility & Automotive,,Germany
+159,Client_159,🧍‍♀️ Fashion & Lifestyle,,Germany
+16,Client_16,👶 Family & Kids,,Germany
+160,Client_160,🧬 Health & Functional Products,,Germany
+161,Client_161,🧬 Health & Functional Products,,Germany
+162,Client_162,🧬 Health & Functional Products,,Germany
+163,Client_163,🧍‍♀️ Fashion & Lifestyle,Fashion,Germany
+164,Client_164,🧍‍♀️ Fashion & Lifestyle,,Germany
+165,Client_165,🧍‍♀️ Fashion & Lifestyle,,Germany
+166,Client_166,👶 Family & Kids,,Germany
+167,Client_167,🏠 Home & Living,,Germany
+168,Client_168,🧬 Health & Functional Products,,Germany
+169,Client_169,🧬 Health & Functional Products,,Germany
+17,Client_17,🏠 Home & Living,,Germany
+170,Client_170,"🏛️ Finance, Insurance & Institutions",,Germany
+171,Client_171,🏠 Home & Living,,Germany
+172,Client_172,🚗 Mobility & Automotive,,Germany
+173,Client_173,🧬 Health & Functional Products,,Germany
+174,Client_174,🥣 Food & Beverage (FMCG),,Germany
+175,Client_175,👶 Family & Kids,,Germany
+176,Client_176,🧬 Health & Functional Products,F&B,Germany
+177,Client_177,🥣 Food & Beverage (FMCG),,Germany
+178,Client_178,🥣 Food & Beverage (FMCG),,Germany
+179,Client_179,🧬 Health & Functional Products,,Germany
+18,Client_18,🧍‍♀️ Fashion & Lifestyle,,Germany
+180,Client_180,🏠 Home & Living,,Germany
+181,Client_181,🥣 Food & Beverage (FMCG),,Germany
+182,Client_182,🧍‍♀️ Fashion & Lifestyle,,Germany
+183,Client_183,"🏛️ Finance, Insurance & Institutions",,Germany
+184,Client_184,🥣 Food & Beverage (FMCG),,Germany
+19,Client_19,🏠 Home & Living,,Germany
+2,Client_2,💡 Tech & Digital Tools,,Germany
+20,Client_20,🧬 Health & Functional Products,,Germany
+21,Client_21,🏠 Home & Living,,Germany
+22,Client_22,🏠 Home & Living,,Germany
+23,Client_23,🚗 Mobility & Automotive,,Germany
+24,Client_24,🥣 Food & Beverage (FMCG),#N/A (Did not find value '1194065998734563' in VLOOKUP evaluation.),Germany
+25,Client_25,🧍‍♀️ Fashion & Lifestyle,Sports,Germany
+26,Client_26,🧍‍♀️ Fashion & Lifestyle,,Germany
+27,Client_27,🧬 Health & Functional Products,Health,Germany
+28,Client_28,"🌍 Travel, Leisure & Tourism",,Germany
+29,Client_29,🏠 Home & Living,gern am Mammaly Dashboard orientieren ,Germany
+3,Client_3,🏠 Home & Living,,Germany
+30,Client_30,🥣 Food & Beverage (FMCG),,Germany
+31,Client_31,🧍‍♀️ Fashion & Lifestyle,,Germany
+32,Client_32,🏠 Home & Living,,Germany
+33,Client_33,"🏛️ Finance, Insurance & Institutions",,Germany
+34,Client_34,🧍‍♀️ Fashion & Lifestyle,,Germany
+35,Client_35,🏠 Home & Living,,Germany
+36,Client_36,🥣 Food & Beverage (FMCG),,Germany
+37,Client_37,🚗 Mobility & Automotive,,Germany
+38,Client_38,"🏛️ Finance, Insurance & Institutions",,Germany
+39,Client_39,🏠 Home & Living,,Germany
+4,Client_4,🚗 Mobility & Automotive,,Germany
+40,Client_40,🧬 Health & Functional Products,,Germany
+41,Client_41,🧬 Health & Functional Products,,Germany
+42,Client_42,🏠 Home & Living,,Germany
+43,Client_43,🧍‍♀️ Fashion & Lifestyle,,Germany
+44,Client_44,🏠 Home & Living,,Germany
+45,Client_45,💡 Tech & Digital Tools,,Germany
+46,Client_46,"🌍 Travel, Leisure & Tourism",,Germany
+47,Client_47,🧍‍♀️ Fashion & Lifestyle,Fashion,Germany
+48,Client_48,,,Germany
+49,Client_49,🧍‍♀️ Fashion & Lifestyle,,Germany
+5,Client_5,👶 Family & Kids,,Germany
+50,Client_50,👶 Family & Kids,,Germany
+51,Client_51,🏠 Home & Living,,Germany
+52,Client_52,"🏛️ Finance, Insurance & Institutions",,Germany
+53,Client_53,🏠 Home & Living,,Germany
+54,Client_54,🧍‍♀️ Fashion & Lifestyle,,Germany
+55,Client_55,"🏛️ Finance, Insurance & Institutions",,Germany
+56,Client_56,🧬 Health & Functional Products,,Germany
+57,Client_57,🧍‍♀️ Fashion & Lifestyle,,Germany
+58,Client_58,🏠 Home & Living,,Germany
+59,Client_59,👶 Family & Kids,,Germany
+6,Client_6,🧍‍♀️ Fashion & Lifestyle,,Germany
+60,Client_60,👶 Family & Kids,,Germany
+61,Client_61,👶 Family & Kids,,Germany
+62,Client_62,🥣 Food & Beverage (FMCG),,Germany
+63,Client_63,👶 Family & Kids,,Germany
+64,Client_64,💡 Tech & Digital Tools,,Germany
+65,Client_65,🧬 Health & Functional Products,,Germany
+66,Client_66,🏠 Home & Living,,Germany
+67,Client_67,🏠 Home & Living,,Germany
+68,Client_68,🏠 Home & Living,,Germany
+69,Client_69,💡 Tech & Digital Tools,Lifestyle,Germany
+7,Client_7,🧍‍♀️ Fashion & Lifestyle,,Germany
+70,Client_70,💡 Tech & Digital Tools,,Germany
+71,Client_71,🧬 Health & Functional Products,,Germany
+72,Client_72,🥣 Food & Beverage (FMCG),F&B,Germany
+73,Client_73,🧬 Health & Functional Products,Health,Germany
+74,Client_74,👶 Family & Kids,,Germany
+75,Client_75,🧬 Health & Functional Products,F&B,Germany
+76,Client_76,"🌍 Travel, Leisure & Tourism",,Germany
+77,Client_77,💡 Tech & Digital Tools,,Germany
+78,Client_78,🧬 Health & Functional Products,F&B,Germany
+79,Client_79,🧬 Health & Functional Products,F&B,Germany
+8,Client_8,🧍‍♀️ Fashion & Lifestyle,,Germany
+80,Client_80,🏠 Home & Living,Lifestyle,Germany
+81,Client_81,🏠 Home & Living,,Germany
+82,Client_82,🧍‍♀️ Fashion & Lifestyle,,Germany
+83,Client_83,🧬 Health & Functional Products,Health,Germany
+84,Client_84,👶 Family & Kids,,Germany
+85,Client_85,🧬 Health & Functional Products,,Germany
+86,Client_86,👶 Family & Kids,,Germany
+87,Client_87,🥣 Food & Beverage (FMCG),Health,Germany
+88,Client_88,🧍‍♀️ Fashion & Lifestyle,,Germany
+89,Client_89,🧬 Health & Functional Products,,Germany
+9,Client_9,🧍‍♀️ Fashion & Lifestyle,,Germany
+90,Client_90,🧍‍♀️ Fashion & Lifestyle,,Germany
+91,Client_91,🥣 Food & Beverage (FMCG),,Germany
+92,Client_92,👶 Family & Kids,,Germany
+93,Client_93,🥣 Food & Beverage (FMCG),,Germany
+94,Client_94,🏠 Home & Living,,Germany
+95,Client_95,🏠 Home & Living,,Germany
+96,Client_96,🧍‍♀️ Fashion & Lifestyle,,Germany
+97,Client_97,🏠 Home & Living,,Germany
+98,Client_98,👶 Family & Kids,,Germany
+99,Client_99,🧬 Health & Functional Products,,Germany
+185,Client_116_B2B,🧬 Health & Functional Products,,Germany
+186,Client_137 ,🧬 Health & Functional Products,Health,Germany
+187,Client_74 ,👶 Family & Kids,,Germany
+188,Client_33_B2B,"🏛️ Finance, Insurance & Institutions",,Germany
+189,Client_67 ,🏠 Home & Living,,Germany

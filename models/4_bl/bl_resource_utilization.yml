@@ -1,0 +1,198 @@
+version: 2
+
+models:
+  - name: bl_resource_utilization
+    description: >
+      Business-layer model providing employee-level resource utilization
+      at the grain of employee × client × project.
+
+      This model aggregates tracked hours, internal personnel cost, and
+      utilization KPIs from time-tracking data, enriched with employee, client, and project master information.
+
+    meta:
+      data_product: "Resource Utilization Overview"
+      grain: "1 row per employee_id × client_id × project_id"
+      primary_sources:
+        - "cl_time_tracking"
+        - "cl_employees"
+        - "cl_clients"
+        - "cl_projects"
+      scope: >
+        Includes employees with recorded time entries in the dataset.
+        Internal-only or non-project activities appear with NULL project_id.
+      limitations: >
+        1) In the provided sample dataset, all time entries have is_productive = TRUE.
+           As a result:
+             - billable_hours = total_hours
+             - non_billable_hours = 0
+             - utilization_rate_billable_hours = 1
+           The generic logic is preserved to reflect real-world scenarios where non-billable time exists.
+
+        2) Project-level budget and date fields are included but may be NULL for non-project activities. 
+           These should be interpreted as optional metadata rather than required performance dimensions.
+
+        3) Since the model aggregates by employee × client × project, 
+           clients with no tracked internal hours do not appear, and high-level employee
+           workload across all clients should be computed in a downstream model.
+
+    tests:
+      # Grain check: the combination of employee_id, client_id, and project_id
+      # must be unique in this business-layer model.
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: ["employee_id", "client_id", "project_id"]
+
+    columns:
+
+      # Identity & dimension columns
+      - name: employee_id
+        description: >
+          Unique employee identifier, joined from cl_employees.
+        tests:
+          - not_null
+          # - relationships: -- Some employee_ids in time tracking do not have a matching record in cl_employees.
+          #     to: ref('cl_employees')
+          #     field: employee_id
+
+      - name: employee_name
+        description: >
+          Employee name from HR master data.
+
+      - name: department_name
+        description: >
+          Department the employee belongs to.
+
+      - name: team_name
+        description: >
+          Team or squad name within the department.
+
+      - name: hourly_rate_eur
+        description: >
+          Internal hourly rate in EUR for calculating internal personnel cost.
+
+      - name: employee_status
+        description: >
+          Employee status (e.g. active / inactive).
+
+      - name: client_id
+        description: >
+          Client identifier associated with the time entry.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('cl_clients')
+              field: client_id
+
+      - name: client_name
+        description: >
+          Client name from cl_clients.
+
+      - name: primary_industry
+        description: >
+          Industry classification of the client.
+
+      - name: country
+        description: >
+          Client country attribute.
+
+      - name: project_id
+        description: >
+          Project identifier from cl_projects. May be NULL for internal tasks.
+        tests: []
+
+      - name: project_name
+        description: >
+          Project name from cl_projects.
+
+      - name: project_start_date
+        description: >
+          Start date of the project, where available.
+
+      - name: project_end_date
+        description: >
+          End date of the project, where available.
+
+      - name: monthly_budget_eur
+        description: >
+          Monthly budget of the project in EUR, as recorded in cl_projects.
+
+      # Aggregated hour & cost info
+      - name: first_work_date
+        description: >
+          First date the employee logged time for this client/project.
+
+      - name: last_work_date
+        description: >
+          Last date the employee logged time for this client/project.
+
+      - name: n_work_days
+        description: >
+          Number of distinct days with tracked time entries.
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 1"
+
+      - name: total_hours
+        description: >
+          Total hours logged across all tracked days.
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+      - name: billable_hours
+        description: >
+          Hours classified as productive (billable). In the sample dataset,
+          this equals total_hours.
+
+      - name: non_billable_hours
+        description: >
+          Hours classified as non-productive (non-billable). Always zero
+          in this dataset due to all rows having is_productive = TRUE.
+
+      - name: total_cost_eur
+        description: >
+          Total internal personnel cost for this combination (hours × hourly_rate).
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+      - name: billable_cost_eur
+        description: >
+          Cost associated with billable_hours.
+
+      - name: non_billable_cost_eur
+        description: >
+          Cost associated with non_billable_hours.
+
+      # Utilization metrics
+      - name: utilization_rate_billable_hours
+        description: >
+          Billable hours divided by total hours (0–1).
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "between 0 and 1"
+
+      - name: utilization_rate_billable_cost
+        description: >
+          Billable cost divided by total cost (0–1).
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "between 0 and 1"
+
+      - name: avg_hours_per_work_day
+        description: >
+          Simple workload metric: total_hours divided by n_work_days.
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
+
+      - name: empirical_utilization_rate
+        description: >
+          Total tracked hours divided by (n_work_days × 8),
+          approximating effective daily utilization independent of billable logic.
+
+      - name: internal_cost_per_hour_eur
+        description: >
+          Effective internal cost per tracked hour.
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: ">= 0"
