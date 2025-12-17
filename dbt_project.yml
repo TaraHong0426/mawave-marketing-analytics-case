@@ -1,0 +1,37 @@
+# Project metadata
+name: 'mawave_analytics'
+version: '1.0.0'
+profile: 'mawave_analytics'
+
+# File system paths
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+
+# Model configurations
+models:
+  mawave_analytics:
+
+    # Integration Layer (raw ingestion or external tables)
+    1_il:
+      +materialized: view
+
+    # Cleansing Layer (standardization)
+    2_cl:
+      +materialized: table
+
+    # Operational Layer (business-ready grain)
+    3_ol:
+      +materialized: table
+
+    # Business Layer (KPI / reporting models)
+    4_bl:
+      +materialized: table
