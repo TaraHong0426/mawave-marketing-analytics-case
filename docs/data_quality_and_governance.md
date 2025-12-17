@@ -7,7 +7,7 @@
 
 This section covers the dbt tests implemented across all layers:
 
-- Clean Layer (CL)
+- Cleansing Layer (CL)
 - Operational Layer (OL)
 - Business Layer (BL)
 - Singular SQL tests
@@ -16,7 +16,7 @@ This section covers the dbt tests implemented across all layers:
 
 ---
 
-## 1.1 Clean Layer (CL) – Generic Tests
+## 1.1 Cleansing Layer (CL) – Generic Tests
 
 ### cl_clients.ymls
 
